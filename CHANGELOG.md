@@ -1,0 +1,14 @@
+# Changelog
+
+All changes added to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+
+## [Unreleased]
+
+- Created eslint config
+- Created prettier config
+- Created husky & lint-staged config
+- Added typescript config
+- Added readme
+- Added changelog
