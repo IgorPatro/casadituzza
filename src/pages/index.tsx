@@ -1,7 +1,7 @@
 import * as React from 'react'
 import TestComponent from 'components/TestComponent'
 
-const IndexPage = (props) => {
+const IndexPage = () => {
   return (
     <>
       <h1>Hello world!</h1>

@@ -15,7 +15,7 @@
     "clean": "gatsby clean",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "lint": "eslint --debug",
+    "lint": "eslint",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write ./src"
   },
