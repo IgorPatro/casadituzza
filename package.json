@@ -14,7 +14,10 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "lint": "eslint --debug",
+    "type-check": "tsc --pretty --noEmit",
+    "format": "prettier --write ./src"
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.13.3",
@@ -35,15 +38,17 @@
   "devDependencies": {
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
+    "eslint-config-prettier": "^8.3.0",
     "gatsby-plugin-root-import": "^2.0.8",
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1",
     "typescript": "^4.4.4"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write",
+      "yarn run lint",
+      "yarn run format",
       "git add ."
     ]
   }

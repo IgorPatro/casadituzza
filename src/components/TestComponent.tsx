@@ -1,5 +1,5 @@
-import React from "react"
-import Image from "assets/images/icon.png"
+import React from 'react'
+import Image from 'assets/images/icon.png'
 
 interface Props {
   title: string

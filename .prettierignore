@@ -1,0 +1,12 @@
+# Gatsby build
+.cache
+public
+
+# Husky
+.husky
+
+# Dependencies
+package-lock.json
+yarn.lock
+node_modules
+

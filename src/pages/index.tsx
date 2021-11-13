@@ -1,7 +1,7 @@
-import * as React from "react"
-import TestComponent from "components/TestComponent"
+import * as React from 'react'
+import TestComponent from 'components/TestComponent'
 
-const IndexPage = () => {
+const IndexPage = (props) => {
   return (
     <>
       <h1>Hello world!</h1>
