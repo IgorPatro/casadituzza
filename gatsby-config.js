@@ -1,3 +1,5 @@
+const path = require("path")
+
 module.exports = {
   siteMetadata: {
     title: "casadituzza",
@@ -17,7 +19,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.png",
+        icon: "src/assets/images/icon.png",
       },
     },
     "gatsby-plugin-sharp",
@@ -26,9 +28,18 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "images",
-        path: "./src/images/",
+        path: "./src/assets/images/",
       },
       __key: "images",
+    },
+    {
+      resolve: "gatsby-plugin-root-import",
+      options: {
+        src: path.join(__dirname, "src"),
+        pages: path.join(__dirname, "src/pages"),
+        components: path.join(__dirname, "src/components"),
+        assets: path.join(__dirname, "src/assets"),
+      },
     },
   ],
 }
