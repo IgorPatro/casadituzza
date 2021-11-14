@@ -14,29 +14,12 @@ jobs:
           username: ${{ secrets.DEVELOPMENT_USERNAME }}
           password: ${{ secrets.DEVELOPMENT_PASSWORD }}
           script: whoami
-      
-      - name: Save artifact to start next job
-        run: |
-          touch artifact.txt
-          echo "This is artifact created to start next job" >> artifact.txt
-          cat artifact.txt
-          
-      - name: Upload artifact file
-        uses: actions/upload-artifact@v2
-        with:
-          name: artifact-file
-          path: artifact.txt
 
-  build:
+  website-build:
     name: Building website
     needs: connection-test
     runs-on: ubuntu-latest
     steps:
-      - name: Download an artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: artifact-file
-    
       - name: Get code
         uses: actions/checkout@v2
         with:
@@ -62,16 +45,16 @@ jobs:
           username: ${{ secrets.DEVELOPMENT_USERNAME }}
           password: ${{ secrets.DEVELOPMENT_PASSWORD }}
           script: whoami
-          
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
           name: build
           path: public/
 
-  deploy:
+  website-deploy:
     name: Deplying website
-    needs: build
+    needs: website-build
     runs-on: ubuntu-latest
     steps:
       - name: Download build artifact
@@ -79,13 +62,13 @@ jobs:
         with:
           name: build
           path: public/
-    
+
       - name: Log downloaded artifacts
         run: |
           pwd
           ls
           ls public
-    
+
       - name: Use Node.js 15.8.0
         uses: actions/setup-node@v2-beta
         with:
