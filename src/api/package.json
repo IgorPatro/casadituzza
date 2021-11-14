@@ -1,0 +1,11 @@
+{
+  "name": "casadituzza-api",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "API for casadituzza",
+  "main": "index.js",
+  "author": "Igor Patro",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
