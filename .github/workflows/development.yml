@@ -29,6 +29,7 @@ jobs:
 
   build:
     name: Building website
+    needs: connection-test
     runs-on: ubuntu-latest
     steps:
       - name: Download an artifact
@@ -70,6 +71,7 @@ jobs:
 
   deploy:
     name: Deplying website
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download build artifact
