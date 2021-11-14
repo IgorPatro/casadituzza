@@ -1,0 +1,32 @@
+name: Test Pipeline
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    name: Testing VPS connection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run a one-line script
+        run: echo "Hello docker container!"
+
+      - name: Execute remotely whoami command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEVELOPMENT_HOST }}
+          username: ${{ secrets.DEVELOPMENT_USERNAME }}
+          password: ${{ secrets.DEVELOPMENT_PASSWORD }}
+          script: whoami
+
+      - name: Execute remotely few commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEVELOPMENT_HOST }}
+          username: ${{ secrets.DEVELOPMENT_USERNAME }}
+          password: ${{ secrets.DEVELOPMENT_PASSWORD }}
+          script: |
+            echo "Hello on vps!"
+            ls
+            pwd
