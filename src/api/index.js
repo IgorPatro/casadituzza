@@ -6,14 +6,20 @@ const app = express()
 app.use(express.json())
 
 app.get('/api', (req, res) => {
+  console.log('Home route!')
+
   return res.json({ response: 'This is API!' })
 })
 
 app.get('/api/test', (req, res) => {
+  console.log('Test route!')
+
   return res.json({ response: 'This is test route!' })
 })
 
 app.get('/api/new-route', (req, res) => {
+  console.log('New route!')
+
   return res.json({
     response: 'This is new route to test out is pipeline working!',
   })
