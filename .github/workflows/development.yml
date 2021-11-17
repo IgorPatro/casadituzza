@@ -38,14 +38,6 @@ jobs:
           yarn
           yarn build
 
-      - name: Building website
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DEVELOPMENT_HOST }}
-          username: ${{ secrets.DEVELOPMENT_USERNAME }}
-          password: ${{ secrets.DEVELOPMENT_PASSWORD }}
-          script: whoami
-
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
@@ -96,7 +88,6 @@ jobs:
           password: ${{ secrets.DEVELOPMENT_PASSWORD }}
           script: |
             cd /home/deployer/backend/
-            ls
             pm2 stop API
             pm2 delete API
 
@@ -123,7 +114,6 @@ jobs:
           password: ${{ secrets.DEVELOPMENT_PASSWORD }}
           script: |
             cd /home/deployer/backend/
-            ls
             npm install
 
       - name: Start app with pm2
@@ -134,5 +124,4 @@ jobs:
           password: ${{ secrets.DEVELOPMENT_PASSWORD }}
           script: |
             cd /home/deployer/backend/
-            ls
             pm2 start index.js --name API --watch
