@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   connection-test:
-    name: Testing VPS connection
+    name: Test VPS connection
     runs-on: ubuntu-latest
     steps:
       - name: Execute remote command on vps
@@ -16,7 +16,7 @@ jobs:
           script: whoami
 
   website-build:
-    name: Building website
+    name: Build website
     needs: connection-test
     runs-on: ubuntu-latest
     steps:
@@ -53,7 +53,7 @@ jobs:
           path: public/
 
   website-deploy:
-    name: Deplying website
+    name: Deploy website
     needs: website-build
     runs-on: ubuntu-latest
     steps:
@@ -79,7 +79,7 @@ jobs:
           EXCLUDE: 'yarn.lock'
 
   api-deploy:
-    name: Deplying API
+    name: Deploy API
     needs: connection-test
     runs-on: ubuntu-latest
     steps:
@@ -87,6 +87,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
+
+      - name: Stop current API process
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEVELOPMENT_HOST }}
+          username: ${{ secrets.DEVELOPMENT_USERNAME }}
+          password: ${{ secrets.DEVELOPMENT_PASSWORD }}
+          script: |
+            cd /home/deployer/backend/
+            ls
+            pm2 stop API
+            pm2 delete API
 
       - name: Upload backend files
         uses: easingthemes/ssh-deploy@main
@@ -97,3 +109,30 @@ jobs:
           REMOTE_USER: ${{ secrets.DEVELOPMENT_USERNAME }}
           TARGET: '/home/deployer/backend'
           EXCLUDE: 'yarn.lock'
+
+  api-start:
+    name: Start API
+    needs: api-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install packages
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEVELOPMENT_HOST }}
+          username: ${{ secrets.DEVELOPMENT_USERNAME }}
+          password: ${{ secrets.DEVELOPMENT_PASSWORD }}
+          script: |
+            cd /home/deployer/backend/
+            ls
+            npm install
+
+      - name: Start app with pm2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEVELOPMENT_HOST }}
+          username: ${{ secrets.DEVELOPMENT_USERNAME }}
+          password: ${{ secrets.DEVELOPMENT_PASSWORD }}
+          script: |
+            cd /home/deployer/backend/
+            ls
+            pm2 start index.js --name API
