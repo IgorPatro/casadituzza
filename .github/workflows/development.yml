@@ -135,4 +135,4 @@ jobs:
           script: |
             cd /home/deployer/backend/
             ls
-            pm2 start index.js --name API
+            pm2 start index.js --name API --watch
