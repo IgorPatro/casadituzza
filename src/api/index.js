@@ -13,4 +13,10 @@ app.get('/api/test', (req, res) => {
   return res.json({ response: 'This is test route!' })
 })
 
+app.get('/api/new-route', (req, res) => {
+  return res.json({
+    response: 'This is new route to test out is pipeline working!',
+  })
+})
+
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}`))
