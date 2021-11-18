@@ -1,11 +1,17 @@
 {
   "name": "casadituzza-api",
-  "type": "module",
   "version": "0.0.1",
   "description": "API for casadituzza",
+  "license": "MIT",
   "main": "index.js",
   "author": "Igor Patro",
+  "scripts": {
+    "compile": "tsc"
+  },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2"
   }
 }
