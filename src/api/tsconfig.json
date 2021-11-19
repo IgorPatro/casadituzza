@@ -7,7 +7,8 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "noUnusedParameters": false
   },
   "include": ["./src/**/*"]
 }
