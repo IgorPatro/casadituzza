@@ -100,7 +100,7 @@ jobs:
         with:
           name: api-artifact
           path: |
-            src/api/dist/
+            src/api/dist/*
             src/api/package.json
 
   api-deploy:
