@@ -90,7 +90,9 @@ jobs:
 
       - name: Building API
         run: |
+          cd src/api/
           yarn
+          cd ../..
           yarn api-build
 
       - name: Upload api artifact
