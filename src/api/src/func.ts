@@ -1,7 +1,5 @@
 const func = () => {
-  console.log('This is test func')
-
-  return 'test func'
+  return 'Test response'
 }
 
 export default func

@@ -6,6 +6,7 @@
   "main": "index.js",
   "author": "Igor Patro",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1"
   },
   "devDependencies": {

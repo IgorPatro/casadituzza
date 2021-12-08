@@ -88,6 +88,13 @@ jobs:
         with:
           node-version: '15.8.0'
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo IZZYREST_API_URL=${{ secrets.IZZYREST_API_URL }} >> .env
+          echo API_PORT=${{ secrets.API_PORT }} >> .env
+          cat .env
+
       - name: Building API
         run: |
           cd src/api/
