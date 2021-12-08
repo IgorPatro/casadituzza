@@ -90,10 +90,10 @@ jobs:
 
       - name: Create env file
         run: |
-          touch .env
+          touch .env.production
           echo IZZYREST_API_URL=${{ secrets.IZZYREST_API_URL }} >> .env
           echo API_PORT=${{ secrets.API_PORT }} >> .env
-          cat .env
+          cat .env.production
 
       - name: Building API
         run: |
@@ -107,6 +107,7 @@ jobs:
         with:
           name: api-artifact
           path: |
+            .env.production
             src/api/dist/
             src/api/package.json
 
