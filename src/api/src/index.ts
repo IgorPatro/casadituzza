@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config({ path: `.env.${NODE_ENV}` })
 
 import createIzzyRestRequest from './helpers/createIzzyRestRequest'
+import izzyRestFunctions from './data/izzyRestFunctions'
 
 const { API_PORT } = process.env
 
@@ -16,16 +17,11 @@ app.get('/', (_req, res) => {
   )
 })
 
-app.get('/api', (_req, res) => {
-  return res.json({
-    izzyRestUrl: `${process.env.IZZYREST_API_URL}`,
-    env: NODE_ENV,
-  })
-})
-
-app.get('/api/izzyrest', async (_req, res) => {
-  const response = await createIzzyRestRequest(10)
-  // await createIzzyRestRequest(10)
+app.get('/api', async (_req, res) => {
+  const response = await createIzzyRestRequest(
+    izzyRestFunctions.version,
+    'PSID=1'
+  )
 
   return res.json(response)
 })

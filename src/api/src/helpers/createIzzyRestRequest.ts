@@ -1,7 +1,10 @@
 import axios from 'axios'
 import { sha256 } from 'js-sha256'
 
-const createIzzyRestRequest = async (functionNumber: number) => {
+const createIzzyRestRequest = async (
+  functionNumber: number,
+  additionalParameters?: string
+) => {
   const date = new Date(
     new Date().toString().split('GMT')[0] + ' UTC'
   ).toISOString()
@@ -9,19 +12,24 @@ const createIzzyRestRequest = async (functionNumber: number) => {
   const user = process.env.IZZYREST_USER
   const password = process.env.IZZYREST_PASSWORD
 
-  const stringToHash = `fid=${functionNumber}&user=${user}&vc=${formatedDate}&pwd=${password}`
+  const stringToHash = `fid=${functionNumber}${
+    additionalParameters ? `&${additionalParameters}` : ''
+  }&user=${user}&vc=${formatedDate}&pwd=${password}`
   const hashedString = sha256(stringToHash)
 
-  const finalUrl = `${process.env.IZZYREST_API_URL}/api?fid=${functionNumber}&user=${user}&vc=${formatedDate}&vh=${hashedString}`
+  const finalUrl = `${process.env.IZZYREST_API_URL}api?fid=${functionNumber}${
+    additionalParameters ? `&${additionalParameters}` : ''
+  }&user=${user}&vc=${formatedDate}&vh=${hashedString}`
 
-  const izzyRestPing = await axios
+  const izzyRestRequest = await axios
     .get(finalUrl)
     .then((res) => res.data)
-    .catch((err) => err)
+    .catch((err) => {
+      console.log(err.message)
+      return err
+    })
 
-  console.log(finalUrl)
-
-  return izzyRestPing
+  return izzyRestRequest
 }
 
 export default createIzzyRestRequest
