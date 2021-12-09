@@ -11,13 +11,13 @@ const { API_PORT } = process.env
 const app = express()
 app.use(express.json())
 
-app.get('/', (_req, res) => {
+app.get('/api', (_req, res) => {
   return res.send(
     `This is API for casadituzza! We are currently running on ${NODE_ENV} environment.`
   )
 })
 
-app.get('/api', async (_req, res) => {
+app.get('/api/version', async (_req, res) => {
   const response = await createIzzyRestRequest(
     izzyRestFunctions.version,
     'PSID=1'
