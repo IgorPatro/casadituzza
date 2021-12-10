@@ -20,12 +20,13 @@ const createIzzyRestRequest = async (
   const finalUrl = `${process.env.IZZYREST_API_URL}api?fid=${functionNumber}${
     additionalParameters ? `&${additionalParameters}` : ''
   }&user=${user}&vc=${formatedDate}&vh=${hashedString}`
+  const encodedURL = encodeURI(finalUrl)
 
   const izzyRestRequest = await axios
-    .get(finalUrl)
+    .get(encodedURL)
     .then((res) => res.data)
     .catch((err) => {
-      console.log(err.message)
+      console.log('err: ', err.message)
       return err
     })
 

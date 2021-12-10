@@ -4,7 +4,9 @@ import dotenv from 'dotenv'
 dotenv.config({ path: `.env.${NODE_ENV}` })
 
 import createIzzyRestRequest from './helpers/createIzzyRestRequest'
+import replaceSpaces from './helpers/replaceSpaces'
 import izzyRestFunctions from './data/izzyRestFunctions'
+import defaultOrder from './data/defaultOrder'
 
 const { API_PORT } = process.env
 
@@ -21,6 +23,24 @@ app.get('/api/version', async (_req, res) => {
   const response = await createIzzyRestRequest(
     izzyRestFunctions.version,
     'PSID=1'
+  )
+
+  return res.json(response)
+})
+
+app.get('/api/products', async (_req, res) => {
+  const response = await createIzzyRestRequest(
+    izzyRestFunctions.productsList,
+    'PSID=1'
+  )
+
+  return res.json(response)
+})
+
+app.post('/api/add-order', async (_req, res) => {
+  const response = await createIzzyRestRequest(
+    izzyRestFunctions.updateOrCreateNewOrder,
+    `data=${replaceSpaces(JSON.stringify(defaultOrder))}`
   )
 
   return res.json(response)
