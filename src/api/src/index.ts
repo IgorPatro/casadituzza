@@ -3,8 +3,9 @@ import express from 'express'
 import dotenv from 'dotenv'
 dotenv.config({ path: `.env.${NODE_ENV}` })
 
-import createIzzyRestRequest from './helpers/createIzzyRestRequest'
-import replaceSpaces from './helpers/replaceSpaces'
+import genereateBase64IzzyRestRequest from './helpers/genereateBase64IzzyRestRequest'
+import sendIzzyRestRequest from './helpers/sendIzzyRestRequest'
+// import replaceSpaces from './helpers/replaceSpaces'
 import izzyRestFunctions from './data/izzyRestFunctions'
 import defaultOrder from './data/defaultOrder'
 
@@ -20,30 +21,36 @@ app.get('/api', (_req, res) => {
 })
 
 app.get('/api/version', async (_req, res) => {
-  const response = await createIzzyRestRequest(
+  const request = genereateBase64IzzyRestRequest(
     izzyRestFunctions.version,
     'PSID=1'
   )
+
+  const response = await sendIzzyRestRequest(request)
+  // There is data and status parameter to handle error
 
   return res.json(response)
 })
 
 app.get('/api/products', async (_req, res) => {
-  const response = await createIzzyRestRequest(
+  const request = genereateBase64IzzyRestRequest(
     izzyRestFunctions.productsList,
     'PSID=1'
   )
 
+  const response = await sendIzzyRestRequest(request)
+  // There is data and status parameter to handle error
+
   return res.json(response)
 })
 
-app.post('/api/add-order', async (_req, res) => {
-  const response = await createIzzyRestRequest(
+app.post('/api/create-order', async (_req, res) => {
+  const requestParameter = genereateBase64IzzyRestRequest(
     izzyRestFunctions.updateOrCreateNewOrder,
-    `data=${replaceSpaces(JSON.stringify(defaultOrder))}`
+    `data=${JSON.stringify(defaultOrder)}`
   )
 
-  return res.json(response)
+  return res.json({ status: 200, data: requestParameter })
 })
 
 app.listen(API_PORT, () =>

@@ -1,10 +1,10 @@
-import axios from 'axios'
 import { sha256 } from 'js-sha256'
+import { encode } from 'js-base64'
 
-const createIzzyRestRequest = async (
+const genereateBase64IzzyRestRequest = (
   functionNumber: number,
   additionalParameters?: string
-) => {
+): string => {
   const date = new Date(
     new Date().toString().split('GMT')[0] + ' UTC'
   ).toISOString()
@@ -17,20 +17,13 @@ const createIzzyRestRequest = async (
   }&user=${user}&vc=${formatedDate}&pwd=${password}`
   const hashedString = sha256(stringToHash)
 
-  const finalUrl = `${process.env.IZZYREST_API_URL}api?fid=${functionNumber}${
+  const requestParemeter = `fid=${functionNumber}${
     additionalParameters ? `&${additionalParameters}` : ''
   }&user=${user}&vc=${formatedDate}&vh=${hashedString}`
-  const encodedURL = encodeURI(finalUrl)
 
-  const izzyRestRequest = await axios
-    .get(encodedURL)
-    .then((res) => res.data)
-    .catch((err) => {
-      console.log('err: ', err.message)
-      return err
-    })
+  const encodedRequest = encode(requestParemeter)
 
-  return izzyRestRequest
+  return encodedRequest
 }
 
-export default createIzzyRestRequest
+export default genereateBase64IzzyRestRequest
