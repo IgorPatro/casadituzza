@@ -88,6 +88,12 @@ jobs:
         with:
           node-version: '15.8.0'
 
+      - name: Create env file
+        run: |
+          touch .env.production
+          echo IZZYREST_API_URL=${{ secrets.IZZYREST_API_URL }} >> .env.production
+          echo API_PORT=${{ secrets.API_PORT }} >> .env.production
+
       - name: Building API
         run: |
           cd src/api/
@@ -122,8 +128,8 @@ jobs:
           password: ${{ secrets.DEVELOPMENT_PASSWORD }}
           script: |
             cd /home/deployer/backend/
-            pm2 stop API
-            pm2 delete API
+            pm2 stop API || true
+            pm2 delete API || true
 
       - name: Upload backend files
         uses: easingthemes/ssh-deploy@main
@@ -148,6 +154,19 @@ jobs:
           script: |
             cd /home/deployer/backend/
             npm install
+
+      - name: Create env file
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEVELOPMENT_HOST }}
+          username: ${{ secrets.DEVELOPMENT_USERNAME }}
+          password: ${{ secrets.DEVELOPMENT_PASSWORD }}
+          script: |
+            cd /home/deployer/backend/dist/
+            rm .env.production
+            touch .env.production
+            echo IZZYREST_API_URL=${{ secrets.IZZYREST_API_URL }} >> .env.production
+            echo API_PORT=${{ secrets.API_PORT }} >> .env.production
 
       - name: Start app with pm2
         uses: appleboy/ssh-action@master
