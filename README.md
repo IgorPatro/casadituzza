@@ -1,6 +1,6 @@
 <img alt="Casa di Tuzza logo" src="https://restaumatic-production.imgix.net/uploads/restaurants/38136/logo/1604475975.png?auto=compress&crop=focalpoint&fit=clip&h=500&w=500" width="150" />
 
-# Diamond Car
+# Casa di Tuzza
 
 ## Status: ````Cancaled````
 
