@@ -1,12 +1,40 @@
-<p align="center">
-  <a href="https://www.casadituzza.pl">
-    <img alt="Resteurant logo" src="https://restaumatic-production.imgix.net/uploads/restaurants/38136/logo/1604475975.png?auto=compress&crop=focalpoint&fit=clip&h=500&w=500" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Casa di Tuzza
-</h1>
+<img alt="Casa di Tuzza logo" src="https://restaumatic-production.imgix.net/uploads/restaurants/38136/logo/1604475975.png?auto=compress&crop=focalpoint&fit=clip&h=500&w=500" width="150" />
+
+# Casa di Tuzza
+
+## Status: ````Cancaled````
 
 ## Description
+Website for resteurant from Warsow with orders service
 
-This is repo of resteurant placed in Warsow created with Gatsby. Webpage is fully automatic and allows customers to order products. Payments will be probably handled with p24 and orders will be stored in IzzyRest POS.
+## Technologies
+- Gatsby
+- styled-components
+- TypeScript
+- Express
+
+## Setup 
+```bash
+## Setup and run app
+- run 'yarn'
+- create .env file
+- go to '/src/api'
+- run 'yarn'
+- go to root folder
+- run 'yarn dev'
+- run 'yarn api-dev'
+
+## Available commands
+- dev # developing site
+- build # production build
+- serve # serving production build
+- clean # cleaning cache
+- lint # linting code
+- type-check # ts check
+- format # prettier code formating
+- api-dev # developing API
+- api-build # production build for API
+- api-start # start production build API
+```
+
+
